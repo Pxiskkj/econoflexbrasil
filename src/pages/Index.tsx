@@ -1,12 +1,67 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useRef } from "react";
+import Header from "@/components/Header";
+import HeroBanner from "@/components/HeroBanner";
+import ProductCard from "@/components/ProductCard";
+import ProductDetail from "@/components/ProductDetail";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+
+type View = "home" | "product";
 
 const Index = () => {
+  const [currentView, setCurrentView] = useState<View>("home");
+  
+  const inicioRef = useRef<HTMLDivElement>(null);
+  const produtosRef = useRef<HTMLDivElement>(null);
+  const contatoRef = useRef<HTMLDivElement>(null);
+
+  const handleNavigate = (section: string) => {
+    if (section === "inicio") {
+      setCurrentView("home");
+      setTimeout(() => {
+        inicioRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else if (section === "produtos") {
+      setCurrentView("product");
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100);
+    } else if (section === "contato") {
+      setCurrentView("home");
+      setTimeout(() => {
+        contatoRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  };
+
+  const handleProductClick = () => {
+    setCurrentView("product");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background">
+      <Header onNavigate={handleNavigate} />
+      
+      {currentView === "home" ? (
+        <>
+          <div ref={inicioRef}>
+            <HeroBanner />
+          </div>
+          
+          <div ref={produtosRef}>
+            <ProductCard onClick={handleProductClick} />
+          </div>
+        </>
+      ) : (
+        <ProductDetail />
+      )}
+
+      <div ref={contatoRef}>
+        <Footer onNavigate={handleNavigate} />
       </div>
+
+      <WhatsAppButton />
     </div>
   );
 };
