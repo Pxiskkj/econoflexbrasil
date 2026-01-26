@@ -1,15 +1,60 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Instagram } from "lucide-react";
 import PaymentIcons from "./PaymentIcons";
 
 interface FooterProps {
   onNavigate: (section: string) => void;
 }
 
-const Footer = ({ onNavigate: _onNavigate }: FooterProps) => {
+const Footer = ({ onNavigate }: FooterProps) => {
+  const instagramUrl = "https://www.instagram.com/redutor_econoflex?igsh=MTM1cjRndnF3ZnNidg==";
+  
   return (
     <footer className="section-dark py-8">
       <div className="container space-y-6">
+        {/* Social Media */}
+        <div className="flex gap-4">
+          <a 
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white hover:text-white/80 transition-colors"
+          >
+            <Instagram className="h-6 w-6" />
+          </a>
+        </div>
+
+        {/* Contact Info */}
+        <div className="space-y-2 text-sm">
+          <p>5592 95266850</p>
+          <p>9295266850</p>
+          <p>Econoflexbrasil@outlook.com</p>
+          <p>Avenida José Aírton Gondim Lamenha 341</p>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="space-y-2">
+          <button 
+            onClick={() => onNavigate("inicio")}
+            className="block text-white hover:text-white/80 transition-colors text-sm"
+          >
+            Início
+          </button>
+          <button 
+            onClick={() => onNavigate("produtos")}
+            className="block text-white hover:text-white/80 transition-colors text-sm"
+          >
+            Produtos
+          </button>
+          <button 
+            onClick={() => onNavigate("contato")}
+            className="block text-white hover:text-white/80 transition-colors text-sm"
+          >
+            Contato
+          </button>
+        </div>
+
         {/* Newsletter */}
         <div>
           <h3 className="font-bold text-lg mb-4">Newsletter</h3>

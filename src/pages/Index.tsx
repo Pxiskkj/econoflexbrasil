@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import ProductDetail from "@/components/ProductDetail";
+import ReviewsSection from "@/components/ReviewsSection";
 import ContactPage from "@/components/ContactPage";
 import LoginPage from "@/components/LoginPage";
 import Footer from "@/components/Footer";
@@ -64,7 +65,12 @@ const Index = () => {
           </>
         )}
         
-        {currentView === "product" && <ProductDetail />}
+        {currentView === "product" && (
+          <>
+            <ProductDetail />
+            <ReviewsSection />
+          </>
+        )}
         
         {currentView === "contact" && <ContactPage />}
         

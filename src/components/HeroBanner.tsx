@@ -1,12 +1,12 @@
-import heroBanner from "@/assets/hero-banner.jpg";
+import logoEconoflex from "@/assets/logo-econoflex.jpeg";
 
 const HeroBanner = () => {
   return (
-    <section className="w-full">
+    <section className="w-full bg-econoflex-dark py-8 flex justify-center">
       <img 
-        src={heroBanner} 
-        alt="Econoflex - Economia de 40% até 80% de combustível" 
-        className="w-full h-auto object-cover"
+        src={logoEconoflex} 
+        alt="Econoflex Brasil - Redutor de Combustível" 
+        className="h-32 w-auto object-contain"
       />
     </section>
   );
