@@ -27,7 +27,7 @@ const Footer = ({ onNavigate }: FooterProps) => {
 
         {/* Contact Info */}
         <div className="space-y-1 text-xs">
-          <p>5592 95266850</p>
+          <p>559295266850</p>
           <p>9295266850</p>
           <p>Econoflexbrasil@outlook.com</p>
           <p>Avenida José Aírton Gondim Lamenha 341</p>
