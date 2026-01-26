@@ -58,55 +58,55 @@ const ReviewsSection = () => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`h-4 w-4 ${i < rating ? "fill-yellow-400 text-yellow-400" : "fill-gray-200 text-gray-200"}`}
+        className={`h-3 w-3 ${i < rating ? "fill-yellow-400 text-yellow-400" : "fill-gray-200 text-gray-200"}`}
       />
     ));
   };
 
   return (
-    <section className="container py-6 bg-background">
-      <h2 className="font-bold text-sm mb-4">AVALIAÇÕES</h2>
+    <section className="container py-4 bg-background">
+      <h2 className="font-bold text-xs mb-3">AVALIAÇÕES</h2>
       
       {/* Rating Summary */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="text-3xl font-bold">4.9</span>
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-2xl font-bold">4.9</span>
         <div className="flex">{renderStars(5)}</div>
-        <span className="text-muted-foreground text-sm">(3.287)</span>
+        <span className="text-muted-foreground text-xs">(3.287)</span>
       </div>
       
       {/* Rating Distribution */}
-      <div className="space-y-1 mb-6">
+      <div className="space-y-0.5 mb-4">
         {ratingDistribution.map((item) => (
-          <div key={item.stars} className="flex items-center gap-2 text-xs">
-            <span className="w-6 flex items-center gap-0.5">
-              {item.stars}<Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+          <div key={item.stars} className="flex items-center gap-1.5 text-[10px]">
+            <span className="w-5 flex items-center gap-0.5">
+              {item.stars}<Star className="h-2.5 w-2.5 fill-yellow-400 text-yellow-400" />
             </span>
-            <div className="flex-1 bg-gray-200 rounded-full h-2">
+            <div className="flex-1 bg-gray-200 rounded-full h-1.5">
               <div 
-                className="bg-yellow-400 h-2 rounded-full" 
+                className="bg-yellow-400 h-1.5 rounded-full" 
                 style={{ width: `${item.percentage}%` }}
               />
             </div>
-            <span className="w-10 text-right text-muted-foreground">{item.percentage}%</span>
+            <span className="w-8 text-right text-muted-foreground">{item.percentage}%</span>
           </div>
         ))}
       </div>
       
       {/* Reviews List */}
-      <div className="space-y-3">
+      <div className="space-y-2">
         {displayedReviews.map((review, index) => (
-          <div key={index} className="border rounded-lg p-4 bg-card">
-            <div className="flex justify-between items-start mb-1">
-              <div className="flex items-center gap-2">
-                <span className="font-medium text-sm">{review.name}</span>
-                <span className="text-green-600 text-xs flex items-center gap-0.5">
-                  <Check className="h-3 w-3" /> Verificado
+          <div key={index} className="border rounded-lg p-3 bg-card">
+            <div className="flex justify-between items-start mb-0.5">
+              <div className="flex items-center gap-1.5">
+                <span className="font-medium text-xs">{review.name}</span>
+                <span className="text-green-600 text-[10px] flex items-center gap-0.5">
+                  <Check className="h-2.5 w-2.5" /> Verificado
                 </span>
               </div>
-              <span className="text-xs text-muted-foreground">{review.date}</span>
+              <span className="text-[10px] text-muted-foreground">{review.date}</span>
             </div>
-            <div className="flex mb-2">{renderStars(review.rating)}</div>
-            <p className="text-sm text-muted-foreground">{review.comment}</p>
+            <div className="flex mb-1">{renderStars(review.rating)}</div>
+            <p className="text-xs text-muted-foreground">{review.comment}</p>
           </div>
         ))}
       </div>
@@ -114,7 +114,7 @@ const ReviewsSection = () => {
       {/* Toggle Button */}
       <button
         onClick={() => setShowAll(!showAll)}
-        className="w-full text-center py-4 text-destructive text-sm font-medium underline"
+        className="w-full text-center py-3 text-destructive text-xs font-medium underline"
       >
         {showAll ? "Ver menos" : "Ver mais avaliações"}
       </button>

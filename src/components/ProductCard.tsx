@@ -17,9 +17,9 @@ const ProductCard = ({ onClick }: ProductCardProps) => {
       
       <div 
         onClick={onClick}
-        className="flex gap-3 bg-card rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-shadow border p-3"
+        className="flex gap-4 bg-card rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-shadow border p-4"
       >
-        <div className="w-28 h-28 bg-muted flex items-center justify-center flex-shrink-0 rounded">
+        <div className="w-36 h-36 bg-muted flex items-center justify-center flex-shrink-0 rounded">
           <img 
             src={productImage} 
             alt="Econoflex Brasil" 
@@ -28,20 +28,20 @@ const ProductCard = ({ onClick }: ProductCardProps) => {
         </div>
         
         <div className="flex flex-col justify-center min-w-0">
-          <h3 className="text-base font-semibold mb-1">Econoflex Brasil</h3>
+          <h3 className="text-lg font-semibold mb-1">Econoflex Brasil</h3>
           
-          <p className="price-old text-xs">R${originalPrice.toFixed(2).replace('.', ',')}</p>
+          <p className="price-old text-sm">R${originalPrice.toFixed(2).replace('.', ',')}</p>
           
-          <div className="flex items-baseline gap-1.5 mb-0.5">
-            <span className="text-lg font-bold">R${currentPrice.toFixed(2).replace('.', ',')}</span>
-            <span className="price-discount text-xs">{discount}% OFF</span>
+          <div className="flex items-baseline gap-2 mb-1">
+            <span className="text-xl font-bold">R${currentPrice.toFixed(2).replace('.', ',')}</span>
+            <span className="price-discount text-sm">{discount}% OFF</span>
           </div>
           
-          <p className="text-xs text-muted-foreground mb-0.5">
+          <p className="text-sm text-muted-foreground mb-1">
             6 x de R${installments.replace('.', ',')} sem juros
           </p>
           
-          <p className="price-pix text-sm">
+          <p className="price-pix text-base font-medium">
             R${pixPrice.toFixed(2).replace('.', ',')} com Pix
           </p>
         </div>

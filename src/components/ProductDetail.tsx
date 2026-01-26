@@ -69,11 +69,31 @@ const ProductDetail = () => {
 
   const years = Array.from({ length: 32 }, (_, i) => 1995 + i);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setTouchStart(touch.clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart === null) return;
+    const touch = e.changedTouches[0];
+    const diff = touchStart - touch.clientX;
+    if (diff > 50) nextImage();
+    else if (diff < -50) prevImage();
+    setTouchStart(null);
+  };
+
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+
   return (
-    <section className="container py-3">
-      {/* Image Gallery */}
-      <div className="relative mb-3">
-        <div className="aspect-square bg-muted rounded-lg overflow-hidden relative max-h-64">
+    <section className="container py-4">
+      {/* Image Gallery - Centered with Swipe */}
+      <div className="relative mb-4">
+        <div 
+          className="aspect-square bg-muted rounded-lg overflow-hidden relative mx-auto max-w-sm"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <img 
             src={images[currentImage]} 
             alt={`Econoflex Brasil - Imagem ${currentImage + 1}`}
@@ -82,28 +102,28 @@ const ProductDetail = () => {
           
           <button 
             onClick={prevImage}
-            className="absolute left-1.5 top-1/2 -translate-y-1/2 bg-background/80 rounded-full p-1 shadow-md hover:bg-background"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 rounded-full p-1.5 shadow-md hover:bg-background"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-5 w-5" />
           </button>
           <button 
             onClick={nextImage}
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-background/80 rounded-full p-1 shadow-md hover:bg-background"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 rounded-full p-1.5 shadow-md hover:bg-background"
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-5 w-5" />
           </button>
           
-          <span className="absolute top-2 right-2 bg-background/80 px-1.5 py-0.5 rounded text-[10px]">
+          <span className="absolute top-2 right-2 bg-background/80 px-2 py-1 rounded text-xs">
             {currentImage + 1} / {images.length}
           </span>
         </div>
 
-        <div className="flex gap-1.5 mt-2 overflow-x-auto pb-1">
+        <div className="flex gap-2 mt-3 overflow-x-auto pb-1 justify-center">
           {images.map((img, index) => (
             <button
               key={index}
               onClick={() => setCurrentImage(index)}
-              className={`w-12 h-12 flex-shrink-0 rounded overflow-hidden border-2 transition-colors ${
+              className={`w-14 h-14 flex-shrink-0 rounded overflow-hidden border-2 transition-colors ${
                 currentImage === index ? "border-primary" : "border-transparent"
               }`}
             >
@@ -113,34 +133,34 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <p className="text-[10px] text-muted-foreground mb-0.5">
+      <p className="text-xs text-muted-foreground mb-1">
         Início {">"} automóvel {">"} Econoflex Brasil
       </p>
 
-      <p className="text-[10px] text-muted-foreground mb-0.5">+2060 vendidos</p>
+      <p className="text-xs text-muted-foreground mb-1">+2060 vendidos</p>
 
-      <h1 className="text-lg font-bold mb-2">Econoflex Brasil</h1>
+      <h1 className="text-xl font-bold mb-2">Econoflex Brasil</h1>
 
-      <p className="price-old text-[10px]">R${originalPrice.toFixed(2).replace('.', ',')}</p>
+      <p className="price-old text-sm">R${originalPrice.toFixed(2).replace('.', ',')}</p>
       
-      <div className="flex items-baseline gap-1.5 mb-0.5">
-        <span className="text-xl font-bold">R${currentPrice.toFixed(2).replace('.', ',')}</span>
-        <span className="price-discount text-xs">{discount}% OFF</span>
+      <div className="flex items-baseline gap-2 mb-1">
+        <span className="text-2xl font-bold">R${currentPrice.toFixed(2).replace('.', ',')}</span>
+        <span className="price-discount text-sm">{discount}% OFF</span>
       </div>
 
-      <p className="price-pix text-sm mb-0.5">
+      <p className="price-pix text-base mb-1">
         R${pixPrice.toFixed(2).replace('.', ',')} com Pix
       </p>
 
-      <p className="text-[10px] text-muted-foreground mb-0.5">
+      <p className="text-sm text-muted-foreground mb-1">
         6 x de R${installments.replace('.', ',')} sem juros
       </p>
 
-      <p className="text-[10px] mb-2">
+      <p className="text-sm mb-3">
         <span className="price-discount">10% de desconto</span> pagando com Pix
       </p>
 
-      <button className="text-[10px] underline mb-3 text-muted-foreground">
+      <button className="text-sm underline mb-4 text-muted-foreground">
         Ver mais detalhes
       </button>
 

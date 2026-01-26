@@ -31,7 +31,7 @@ const Header = ({ onNavigate }: HeaderProps) => {
 
           {/* Logo - Center */}
           <div 
-            className="flex items-center cursor-pointer"
+            className="absolute left-1/2 -translate-x-1/2 flex items-center cursor-pointer"
             onClick={() => onNavigate("inicio")}
           >
             <img 
@@ -84,9 +84,9 @@ const Header = ({ onNavigate }: HeaderProps) => {
         </div>
 
         {/* Category Bar */}
-        <div className="bg-secondary py-1.5">
+        <div className="bg-econoflex-dark py-1.5">
           <div className="container">
-            <span className="text-xs font-medium">automóvel</span>
+            <span className="text-xs font-medium text-white">automóvel</span>
           </div>
         </div>
 
