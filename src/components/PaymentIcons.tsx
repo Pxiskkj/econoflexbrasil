@@ -2,66 +2,88 @@ const PaymentIcons = () => {
   return (
     <div className="flex flex-wrap gap-2">
       {/* Visa */}
-      <div className="bg-white rounded p-1.5 h-8 w-12 flex items-center justify-center">
-        <svg viewBox="0 0 48 48" className="h-full w-full">
-          <path fill="#1565C0" d="M15.186 19l-2.626 7.832c0 0-.667-3.313-.733-3.729-1.495-3.411-3.701-3.221-3.701-3.221L10.726 30v-.002h3.161L18.258 19H15.186zM17.689 30L20.56 30 22.296 19 19.389 19zM38.008 19h-3.021l-4.71 11h2.852l.588-1.571h3.596L37.619 30h2.613L38.008 19zM34.513 26.328l1.563-4.157.818 4.157H34.513zM26.369 22.206c0-.606.498-1.057 1.926-1.057.928 0 1.991.674 1.991.674l.466-2.309c0 0-1.358-.515-2.691-.515-3.019 0-4.576 1.444-4.576 3.272 0 3.306 3.979 2.853 3.979 4.551 0 .291-.231.964-1.888.964-1.662 0-2.759-.609-2.759-.609l-.495 2.216c0 0 1.063.606 3.117.606 2.059 0 4.915-1.54 4.915-3.752C30.354 23.586 26.369 23.394 26.369 22.206z"/>
+      <div className="bg-white rounded p-2 h-10 w-14 flex items-center justify-center">
+        <svg viewBox="0 0 48 32" className="h-full w-auto">
+          <rect fill="#1A1F71" width="48" height="32" rx="4"/>
+          <text x="24" y="20" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold" fontFamily="Arial">VISA</text>
         </svg>
       </div>
       
       {/* Mastercard */}
-      <div className="bg-white rounded p-1.5 h-8 w-12 flex items-center justify-center">
-        <svg viewBox="0 0 48 48" className="h-full w-full">
-          <circle cx="17" cy="24" r="9" fill="#EB001B"/>
-          <circle cx="31" cy="24" r="9" fill="#F79E1B"/>
-          <path fill="#FF5F00" d="M24 17.5c2.5 2 4 5 4 6.5s-1.5 4.5-4 6.5c-2.5-2-4-5-4-6.5S21.5 19.5 24 17.5z"/>
+      <div className="bg-white rounded p-2 h-10 w-14 flex items-center justify-center">
+        <svg viewBox="0 0 48 32" className="h-full w-auto">
+          <rect fill="#000000" width="48" height="32" rx="4"/>
+          <circle cx="18" cy="16" r="8" fill="#EB001B"/>
+          <circle cx="30" cy="16" r="8" fill="#F79E1B"/>
+          <path fill="#FF5F00" d="M24 10c2 1.5 3 4 3 6s-1 4.5-3 6c-2-1.5-3-4-3-6s1-4.5 3-6z"/>
         </svg>
       </div>
       
       {/* American Express */}
-      <div className="bg-[#006FCF] rounded p-1.5 h-8 w-12 flex items-center justify-center">
-        <span className="text-white text-[6px] font-bold leading-tight text-center">AMERICAN<br/>EXPRESS</span>
+      <div className="bg-[#006FCF] rounded p-2 h-10 w-14 flex items-center justify-center">
+        <div className="text-white text-[5px] font-bold leading-tight text-center">
+          <div>AMERICAN</div>
+          <div>EXPRESS</div>
+        </div>
       </div>
       
       {/* Diners Club */}
-      <div className="bg-white rounded p-1.5 h-8 w-12 flex items-center justify-center">
-        <svg viewBox="0 0 48 48" className="h-full w-full">
-          <circle cx="24" cy="24" r="10" fill="none" stroke="#004A97" strokeWidth="2"/>
-          <text x="24" y="26" textAnchor="middle" fill="#004A97" fontSize="6" fontWeight="bold">DC</text>
+      <div className="bg-white rounded p-2 h-10 w-14 flex items-center justify-center">
+        <svg viewBox="0 0 48 32" className="h-full w-auto">
+          <rect fill="#FFFFFF" width="48" height="32" rx="4" stroke="#004A97" strokeWidth="1"/>
+          <circle cx="24" cy="16" r="10" fill="none" stroke="#004A97" strokeWidth="2"/>
+          <text x="24" y="13" textAnchor="middle" fill="#004A97" fontSize="5" fontWeight="bold">Diners Club</text>
+          <text x="24" y="19" textAnchor="middle" fill="#004A97" fontSize="4">INTERNATIONAL</text>
         </svg>
       </div>
       
-      {/* Aura */}
-      <div className="bg-[#ED1C24] rounded p-1.5 h-8 w-12 flex items-center justify-center">
-        <span className="text-white text-[8px] font-bold">Aura</span>
+      {/* Aura - with sunset/hat icon */}
+      <div className="bg-[#003087] rounded p-2 h-10 w-14 flex items-center justify-center">
+        <div className="flex flex-col items-center">
+          <svg viewBox="0 0 24 12" className="w-8 h-4">
+            <ellipse cx="12" cy="10" rx="10" ry="2" fill="#FFD700"/>
+            <path d="M2 10 Q12 0 22 10" fill="#FF6B00"/>
+          </svg>
+          <span className="text-white text-[7px] font-bold mt-0.5">Aura</span>
+        </div>
       </div>
       
       {/* Elo */}
-      <div className="bg-black rounded p-1.5 h-8 w-12 flex items-center justify-center">
-        <span className="text-yellow-400 text-[10px] font-bold">elo</span>
+      <div className="bg-black rounded p-2 h-10 w-14 flex items-center justify-center">
+        <svg viewBox="0 0 40 20" className="w-10 h-5">
+          <text x="2" y="15" fill="#FFCB05" fontSize="14" fontWeight="bold" fontStyle="italic">el</text>
+          <circle cx="30" cy="10" r="6" fill="none" stroke="#FFCB05" strokeWidth="2"/>
+          <circle cx="30" cy="10" r="3" fill="#EF4123"/>
+        </svg>
       </div>
       
       {/* Discover */}
-      <div className="bg-white rounded p-1.5 h-8 w-12 flex items-center justify-center">
-        <span className="text-orange-500 text-[7px] font-bold">DISCOVER</span>
+      <div className="bg-white rounded p-2 h-10 w-14 flex items-center justify-center border">
+        <svg viewBox="0 0 48 20" className="w-full h-auto">
+          <text x="4" y="14" fill="#000000" fontSize="8" fontWeight="bold">DISCOVER</text>
+          <circle cx="42" cy="10" r="6" fill="#F47920"/>
+        </svg>
       </div>
       
-      {/* Boleto */}
-      <div className="bg-white rounded p-1.5 h-8 w-12 flex items-center justify-center">
+      {/* Boleto Bancário */}
+      <div className="bg-white rounded p-2 h-10 w-14 flex items-center justify-center border">
         <div className="flex flex-col items-center">
-          <span className="text-black text-[5px] font-bold">BOLETO</span>
-          <div className="flex gap-[1px]">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="w-[2px] h-3 bg-black" style={{ height: i % 2 === 0 ? '10px' : '6px' }} />
+          <div className="flex gap-[1px] mb-0.5">
+            {[2, 1, 2, 1, 3, 1, 2, 1, 2].map((w, i) => (
+              <div key={i} className="bg-black" style={{ width: `${w}px`, height: '12px' }} />
             ))}
           </div>
+          <span className="text-black text-[5px] font-bold">BOLETO</span>
+          <span className="text-black text-[4px]">BANCÁRIO</span>
         </div>
       </div>
       
       {/* Pix */}
-      <div className="bg-white rounded p-1.5 h-8 w-12 flex items-center justify-center">
-        <svg viewBox="0 0 48 48" className="h-full w-full">
-          <path fill="#32BCAD" d="M30.5 24l-6.5 6.5-6.5-6.5 6.5-6.5z"/>
-          <path fill="#32BCAD" d="M24 17.5l6.5 6.5-6.5 6.5-6.5-6.5z" transform="rotate(45 24 24)"/>
+      <div className="bg-white rounded p-2 h-10 w-14 flex items-center justify-center border">
+        <svg viewBox="0 0 48 20" className="w-full h-auto">
+          <path d="M8 10l4-4 4 4-4 4z" fill="#32BCAD"/>
+          <path d="M16 10l4-4 4 4-4 4z" fill="#32BCAD"/>
+          <text x="26" y="14" fill="#4BB8A9" fontSize="10" fontWeight="300" fontFamily="sans-serif">pix</text>
         </svg>
       </div>
     </div>
