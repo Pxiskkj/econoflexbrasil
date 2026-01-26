@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/contexts/CartContext";
 import logoEconoflex from "@/assets/logo-econoflex.jpeg";
+import CartDrawer from "./CartDrawer";
 
 interface HeaderProps {
   onNavigate: (section: string) => void;
@@ -11,125 +12,137 @@ interface HeaderProps {
 
 const Header = ({ onNavigate }: HeaderProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { cartCount } = useCart();
+  const [cartOpen, setCartOpen] = useState(false);
+  const { cartCount, cartItems, updateQuantity, removeItem } = useCart();
 
   return (
-    <header className="sticky top-0 z-40 bg-econoflex-dark border-b border-white/10">
-      <div className="container flex items-center justify-between py-3">
-        {/* Menu Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="text-white hover:bg-white/10"
-        >
-          <Menu className="h-6 w-6" />
-        </Button>
-
-        {/* Logo */}
-        <div 
-          className="flex items-center cursor-pointer"
-          onClick={() => onNavigate("inicio")}
-        >
-          <img 
-            src={logoEconoflex} 
-            alt="Econoflex Brasil" 
-            className="h-12 w-auto object-contain"
-          />
-        </div>
-
-        {/* Right Icons */}
-        <div className="flex items-center gap-1">
-          <Button 
-            variant="ghost" 
+    <>
+      <header className="sticky top-0 z-40 bg-econoflex-dark border-b border-white/10">
+        <div className="container flex items-center justify-between py-2">
+          {/* Menu Button */}
+          <Button
+            variant="ghost"
             size="icon"
-            className="text-white hover:bg-white/10"
-            onClick={() => onNavigate("login")}
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-white hover:bg-white/10 h-8 w-8"
           >
-            <User className="h-5 w-5" />
+            <Menu className="h-5 w-5" />
           </Button>
-          <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10">
-            <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
-              {cartCount}
-            </span>
-          </Button>
-        </div>
-      </div>
 
-      {/* Search Bar */}
-      <div className="container pb-3">
-        <div className="relative">
-          <Input 
-            placeholder="O que você está buscando?" 
-            className="pr-14 bg-white text-foreground text-sm"
-          />
-          <Button 
-            size="icon" 
-            className="absolute right-0 top-0 h-full rounded-l-none bg-destructive hover:bg-destructive/90"
+          {/* Logo - Center */}
+          <div 
+            className="flex items-center cursor-pointer"
+            onClick={() => onNavigate("inicio")}
           >
-            <Search className="h-5 w-5" />
-          </Button>
-        </div>
-      </div>
+            <img 
+              src={logoEconoflex} 
+              alt="Econoflex Brasil" 
+              className="h-10 w-auto object-contain"
+            />
+          </div>
 
-      {/* Category Bar */}
-      <div className="bg-secondary py-2">
-        <div className="container">
-          <span className="text-sm font-medium">automóvel</span>
-        </div>
-      </div>
-
-      {/* Mobile Menu - Full Screen */}
-      {menuOpen && (
-        <div className="fixed inset-0 bg-background z-50 flex flex-col">
-          {/* Close Button */}
-          <div className="flex justify-end p-4">
-            <Button
-              variant="ghost"
+          {/* Right Icons */}
+          <div className="flex items-center gap-0">
+            <Button 
+              variant="ghost" 
               size="icon"
-              onClick={() => setMenuOpen(false)}
+              className="text-white hover:bg-white/10 h-8 w-8"
+              onClick={() => onNavigate("login")}
             >
-              <X className="h-6 w-6" />
+              <User className="h-4 w-4" />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="relative text-white hover:bg-white/10 h-8 w-8"
+              onClick={() => setCartOpen(true)}
+            >
+              <ShoppingCart className="h-4 w-4" />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-destructive text-destructive-foreground text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">
+                  {cartCount}
+                </span>
+              )}
             </Button>
           </div>
+        </div>
 
-          {/* Menu Items */}
-          <nav className="flex-1 px-4">
-            <button 
-              onClick={() => { onNavigate("inicio"); setMenuOpen(false); }}
-              className="block w-full text-left py-4 text-base font-medium border-b hover:text-econoflex-orange transition-colors"
+        {/* Search Bar */}
+        <div className="container pb-2 px-3">
+          <div className="relative">
+            <Input 
+              placeholder="O que você está buscando?" 
+              className="pr-12 bg-white text-foreground text-xs h-9"
+            />
+            <Button 
+              size="icon" 
+              className="absolute right-0 top-0 h-full rounded-l-none bg-destructive hover:bg-destructive/90 w-10"
             >
-              INÍCIO
-            </button>
-            <button 
-              onClick={() => { onNavigate("produtos"); setMenuOpen(false); }}
-              className="flex w-full items-center justify-between py-4 text-base font-medium border-b hover:text-econoflex-orange transition-colors"
-            >
-              PRODUTOS
-              <ChevronRight className="h-5 w-5" />
-            </button>
-            <button 
-              onClick={() => { onNavigate("contato"); setMenuOpen(false); }}
-              className="block w-full text-left py-4 text-base font-medium border-b hover:text-econoflex-orange transition-colors"
-            >
-              CONTATO
-            </button>
-          </nav>
-
-          {/* Bottom - Minha Conta */}
-          <div className="border-t p-4">
-            <button 
-              onClick={() => { onNavigate("login"); setMenuOpen(false); }}
-              className="flex items-center gap-3 text-base"
-            >
-              <User className="h-5 w-5" />
-              Minha conta
-            </button>
+              <Search className="h-4 w-4" />
+            </Button>
           </div>
         </div>
-      )}
-    </header>
+
+        {/* Category Bar */}
+        <div className="bg-secondary py-1.5">
+          <div className="container">
+            <span className="text-xs font-medium">automóvel</span>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="fixed inset-0 bg-background z-50 flex flex-col">
+            <div className="flex justify-end p-3">
+              <Button variant="ghost" size="icon" onClick={() => setMenuOpen(false)} className="h-8 w-8">
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+
+            <nav className="flex-1 px-4">
+              <button 
+                onClick={() => { onNavigate("inicio"); setMenuOpen(false); }}
+                className="block w-full text-left py-3 text-sm font-medium border-b hover:text-econoflex-orange transition-colors"
+              >
+                INÍCIO
+              </button>
+              <button 
+                onClick={() => { onNavigate("produtos"); setMenuOpen(false); }}
+                className="flex w-full items-center justify-between py-3 text-sm font-medium border-b hover:text-econoflex-orange transition-colors"
+              >
+                PRODUTOS
+                <ChevronRight className="h-4 w-4" />
+              </button>
+              <button 
+                onClick={() => { onNavigate("contato"); setMenuOpen(false); }}
+                className="block w-full text-left py-3 text-sm font-medium border-b hover:text-econoflex-orange transition-colors"
+              >
+                CONTATO
+              </button>
+            </nav>
+
+            <div className="border-t p-4">
+              <button 
+                onClick={() => { onNavigate("login"); setMenuOpen(false); }}
+                className="flex items-center gap-2 text-sm"
+              >
+                <User className="h-4 w-4" />
+                Minha conta
+              </button>
+            </div>
+          </div>
+        )}
+      </header>
+
+      <CartDrawer 
+        isOpen={cartOpen}
+        onClose={() => setCartOpen(false)}
+        items={cartItems}
+        onUpdateQuantity={updateQuantity}
+        onRemove={removeItem}
+        onNavigate={onNavigate}
+      />
+    </>
   );
 };
 
