@@ -3,10 +3,13 @@ import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import ProductDetail from "@/components/ProductDetail";
+import ContactPage from "@/components/ContactPage";
+import LoginPage from "@/components/LoginPage";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { CartProvider } from "@/contexts/CartContext";
 
-type View = "home" | "product";
+type View = "home" | "product" | "contact" | "login";
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<View>("home");
@@ -27,9 +30,14 @@ const Index = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }, 100);
     } else if (section === "contato") {
-      setCurrentView("home");
+      setCurrentView("contact");
       setTimeout(() => {
-        contatoRef.current?.scrollIntoView({ behavior: "smooth" });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100);
+    } else if (section === "login") {
+      setCurrentView("login");
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }, 100);
     }
   };
@@ -40,29 +48,35 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header onNavigate={handleNavigate} />
-      
-      {currentView === "home" ? (
-        <>
-          <div ref={inicioRef}>
-            <HeroBanner />
-          </div>
-          
-          <div ref={produtosRef}>
-            <ProductCard onClick={handleProductClick} />
-          </div>
-        </>
-      ) : (
-        <ProductDetail />
-      )}
+    <CartProvider>
+      <div className="min-h-screen bg-background">
+        <Header onNavigate={handleNavigate} />
+        
+        {currentView === "home" && (
+          <>
+            <div ref={inicioRef}>
+              <HeroBanner />
+            </div>
+            
+            <div ref={produtosRef}>
+              <ProductCard onClick={handleProductClick} />
+            </div>
+          </>
+        )}
+        
+        {currentView === "product" && <ProductDetail />}
+        
+        {currentView === "contact" && <ContactPage />}
+        
+        {currentView === "login" && <LoginPage />}
 
-      <div ref={contatoRef}>
-        <Footer onNavigate={handleNavigate} />
+        <div ref={contatoRef}>
+          <Footer onNavigate={handleNavigate} />
+        </div>
+
+        <WhatsAppButton />
       </div>
-
-      <WhatsAppButton />
-    </div>
+    </CartProvider>
   );
 };
 
