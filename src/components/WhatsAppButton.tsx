@@ -1,5 +1,5 @@
 const WhatsAppButton = () => {
-  const phoneNumber = "5592952668503";
+  const phoneNumber = "559295266850";
   const message = encodeURIComponent("Olá! Gostaria de saber mais sobre o Econoflex.");
 
   return (
