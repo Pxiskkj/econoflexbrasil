@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ChevronLeft, Check } from "lucide-react";
+import { ChevronLeft, Check, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { CustomerData } from "./CheckoutPage";
+import logo from "@/assets/logo-econoflex.jpeg";
 
 interface PaymentPageProps {
   onBack: () => void;
@@ -25,9 +26,23 @@ const PaymentPage = ({ onBack, customerData, shippingOption, shippingPrice }: Pa
   };
 
   return (
-    <div className="min-h-screen bg-background overflow-y-auto">
-      {/* Header */}
-      <div className="sticky top-0 bg-background border-b z-10">
+    <div className="fixed inset-0 z-50 bg-background flex flex-col">
+      {/* Security Banner */}
+      <div className="bg-green-200 py-2 px-4 flex items-center justify-center gap-4">
+        <span className="font-bold text-lg text-foreground">COMPRA SEGURA</span>
+        <div className="bg-green-500 p-1.5 rounded">
+          <Shield className="h-5 w-5 text-white fill-white" />
+        </div>
+        <span className="font-bold text-lg text-foreground">100% PROTEGIDO</span>
+      </div>
+
+      {/* Logo Header */}
+      <div className="bg-econoflex-dark py-4 flex justify-center">
+        <img src={logo} alt="Econoflex" className="h-16 object-contain rounded" />
+      </div>
+
+      {/* Navigation Header */}
+      <div className="bg-background border-b">
         <div className="container flex items-center gap-3 py-3">
           <button onClick={onBack}>
             <ChevronLeft className="h-5 w-5" />
@@ -36,7 +51,9 @@ const PaymentPage = ({ onBack, customerData, shippingOption, shippingPrice }: Pa
         </div>
       </div>
 
-      <div className="container py-4 pb-24 space-y-4">
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="container py-4 pb-32 space-y-4">
         {/* Delivery Address Summary */}
         <div className="border rounded-lg p-3">
           <div className="flex items-center gap-2 mb-2">
@@ -114,16 +131,17 @@ const PaymentPage = ({ onBack, customerData, shippingOption, shippingPrice }: Pa
           </div>
         </div>
 
-        <Button 
-          onClick={handleFinishOrder}
-          className="w-full bg-green-600 hover:bg-green-700 text-white"
-        >
-          Fazer pedido
-        </Button>
+          <Button 
+            onClick={handleFinishOrder}
+            className="w-full bg-green-600 hover:bg-green-700 text-white"
+          >
+            Fazer pedido
+          </Button>
 
-        <p className="text-[10px] text-center text-muted-foreground">
-          Ao clicar em "Fazer pedido", você será redirecionado para a página de pagamento segura.
-        </p>
+          <p className="text-[10px] text-center text-muted-foreground">
+            Ao clicar em "Fazer pedido", você será redirecionado para a página de pagamento segura.
+          </p>
+        </div>
       </div>
     </div>
   );
