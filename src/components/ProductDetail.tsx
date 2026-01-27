@@ -3,7 +3,9 @@ import { ChevronLeft, ChevronRight, Minus, Plus, ShieldCheck, RotateCcw } from "
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 import ShippingCalculator from "./ShippingCalculator";
+import ProductDetailsModal from "./ProductDetailsModal";
 
 import product1 from "@/assets/product-1.jpeg";
 import product2 from "@/assets/product-2.jpeg";
@@ -37,7 +39,9 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
   const { addToCart } = useCart();
+  const { toast } = useToast();
 
   const images = [product1, product2, product3, product4];
 
@@ -48,14 +52,28 @@ const ProductDetail = () => {
   const installments = (currentPrice / 6).toFixed(2);
 
   const handleBuy = () => {
+    if (!selectedBrand || !selectedYear) {
+      toast({
+        title: "Atenção",
+        description: "Selecione a marca e o ano do veículo antes de comprar.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const brandName = carBrands.find(b => b.toLowerCase().replace(/[()]/g, "").replace(" ", "-") === selectedBrand) || "Não selecionado";
     addToCart({
       name: "Econoflex Brasil",
       brand: brandName,
-      year: selectedYear || "Não selecionado",
+      year: selectedYear,
       quantity,
       originalPrice,
       currentPrice
+    });
+    
+    toast({
+      title: "Adicionado ao carrinho",
+      description: "Produto adicionado com sucesso!",
     });
   };
 
@@ -160,9 +178,17 @@ const ProductDetail = () => {
         <span className="price-discount">10% de desconto</span> pagando com Pix
       </p>
 
-      <button className="text-sm underline mb-4 text-muted-foreground">
+      <button 
+        onClick={() => setShowDetailsModal(true)}
+        className="text-sm underline mb-4 text-muted-foreground"
+      >
         Ver mais detalhes
       </button>
+
+      <ProductDetailsModal 
+        isOpen={showDetailsModal} 
+        onClose={() => setShowDetailsModal(false)} 
+      />
 
       <div className="grid grid-cols-2 gap-2 mb-3">
         <div>
