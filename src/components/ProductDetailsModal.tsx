@@ -86,6 +86,13 @@ const ProductDetailsModal = ({ isOpen, onClose }: ProductDetailsModalProps) => {
                 </div>
                 <span className="font-medium">R$29,54</span>
               </div>
+              <div className="flex justify-between items-center px-3 py-2 text-sm">
+                <div>
+                  <p className="font-medium">SEDEX Promocional</p>
+                  <p className="text-xs text-muted-foreground">Entrega em até 5 dias úteis</p>
+                </div>
+                <span className="font-medium">R$64,11</span>
+              </div>
             </div>
           </div>
 
