@@ -43,7 +43,8 @@ const CartDrawer = ({ isOpen, onClose, items, onUpdateQuantity, onRemove, onNavi
 
   const shippingOptions = [
     { id: "envio-mini", name: "ENVIO MINI Promocional", delivery: "Chega entre quarta 11/02 e quinta 12/02", price: 19.58 },
-    { id: "pac", name: "PAC Promocional", delivery: "Chega segunda 09/02", price: 29.54 }
+    { id: "pac", name: "PAC Promocional", delivery: "Chega segunda 09/02", price: 29.54 },
+    { id: "sedex", name: "SEDEX Promocional", delivery: "Chega entre segunda 02/02 e terça 03/02", price: 64.11 }
   ];
 
   const formatCep = (value: string) => {

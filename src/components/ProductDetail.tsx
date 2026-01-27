@@ -74,6 +74,7 @@ const ProductDetail = () => {
     toast({
       title: "Adicionado ao carrinho",
       description: "Produto adicionado com sucesso!",
+      duration: 2000,
     });
   };
 
