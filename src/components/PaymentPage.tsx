@@ -25,7 +25,7 @@ const PaymentPage = ({ onBack, customerData, shippingOption, shippingPrice }: Pa
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-y-auto">
       {/* Header */}
       <div className="sticky top-0 bg-background border-b z-10">
         <div className="container flex items-center gap-3 py-3">
@@ -36,7 +36,7 @@ const PaymentPage = ({ onBack, customerData, shippingOption, shippingPrice }: Pa
         </div>
       </div>
 
-      <div className="container py-4 space-y-4">
+      <div className="container py-4 pb-24 space-y-4">
         {/* Delivery Address Summary */}
         <div className="border rounded-lg p-3">
           <div className="flex items-center gap-2 mb-2">

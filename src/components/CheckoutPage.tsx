@@ -89,7 +89,7 @@ const CheckoutPage = ({ onBack, onContinue, shippingOption, shippingPrice }: Che
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-y-auto">
       {/* Header */}
       <div className="sticky top-0 bg-background border-b z-10">
         <div className="container flex items-center gap-3 py-3">
@@ -100,7 +100,7 @@ const CheckoutPage = ({ onBack, onContinue, shippingOption, shippingPrice }: Che
         </div>
       </div>
 
-      <div className="container py-4 space-y-4">
+      <div className="container py-4 pb-24 space-y-4">
         {/* Order Summary */}
         <div className="border rounded-lg p-3">
           <h2 className="font-medium text-sm mb-3">Resumo do pedido</h2>
