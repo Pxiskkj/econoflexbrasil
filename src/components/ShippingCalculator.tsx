@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Truck, ChevronDown, ChevronUp } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { getShippingOptionsWithDates } from "@/lib/shipping";
 
 const ShippingCalculator = () => {
   const [cep, setCep] = useState("");
   const [formattedCep, setFormattedCep] = useState("");
   const [showShipping, setShowShipping] = useState(false);
   const [showMoreOptions, setShowMoreOptions] = useState(false);
+
+  // Get shipping options with dynamic delivery dates
+  const allShippingOptions = useMemo(() => getShippingOptionsWithDates(), []);
 
   const formatCep = (value: string) => {
     // Remove non-digits
@@ -35,24 +39,10 @@ const ShippingCalculator = () => {
     }
   };
 
-  const shippingOptions = [
-    {
-      name: "ENVIO MINI Promocional",
-      delivery: "Chega entre quarta 11/02 e quinta 12/02",
-      price: "R$24,54"
-    },
-    {
-      name: "SEDEX Promocional",
-      delivery: "Chega entre segunda 02/02 e terça 03/02",
-      price: "R$64,11"
-    }
-  ];
-
-  const extraOption = {
-    name: "PAC Promocional",
-    delivery: "Chega segunda 09/02",
-    price: "R$19,58"
-  };
+  // Main options: ENVIO MINI and SEDEX
+  const mainOptions = allShippingOptions.filter(o => o.id === "envio-mini" || o.id === "sedex");
+  // Extra option: PAC
+  const extraOption = allShippingOptions.find(o => o.id === "pac");
 
   return (
     <div className="mb-8">
@@ -109,27 +99,27 @@ const ShippingCalculator = () => {
 
           {/* Shipping Options */}
           <div className="space-y-3">
-            {shippingOptions.map((option, index) => (
-              <div key={index} className="bg-muted/50 p-4 rounded-lg">
+            {mainOptions.map((option) => (
+              <div key={option.id} className="bg-muted/50 p-4 rounded-lg">
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="font-medium text-sm">{option.name}</p>
                     <p className="text-muted-foreground text-xs">{option.delivery}</p>
                   </div>
-                  <span className="font-semibold text-sm">{option.price}</span>
+                  <span className="font-semibold text-sm">R${option.price.toFixed(2).replace('.', ',')}</span>
                 </div>
               </div>
             ))}
 
             {/* Extra Option (PAC) */}
-            {showMoreOptions && (
+            {showMoreOptions && extraOption && (
               <div className="bg-muted/50 p-4 rounded-lg">
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="font-medium text-sm">{extraOption.name}</p>
                     <p className="text-muted-foreground text-xs">{extraOption.delivery}</p>
                   </div>
-                  <span className="font-semibold text-sm">{extraOption.price}</span>
+                  <span className="font-semibold text-sm">R${extraOption.price.toFixed(2).replace('.', ',')}</span>
                 </div>
               </div>
             )}
