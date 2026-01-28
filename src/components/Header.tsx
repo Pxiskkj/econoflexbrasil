@@ -42,24 +42,24 @@ const Header = ({ onNavigate }: HeaderProps) => {
           </div>
 
           {/* Right Icons */}
-          <div className="flex items-center gap-0">
+          <div className="flex items-center gap-1">
             <Button 
               variant="ghost" 
               size="icon"
-              className="text-white hover:bg-white/10 h-8 w-8"
+              className="text-white hover:bg-white/10 h-10 w-10"
               onClick={() => onNavigate("login")}
             >
-              <User className="h-4 w-4" />
+              <User className="h-5 w-5" />
             </Button>
             <Button 
               variant="ghost" 
               size="icon" 
-              className="relative text-white hover:bg-white/10 h-8 w-8"
+              className="relative text-white hover:bg-white/10 h-10 w-10"
               onClick={() => setCartOpen(true)}
             >
-              <ShoppingCart className="h-4 w-4" />
+              <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-destructive text-destructive-foreground text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">
+                <span className="absolute -top-0.5 -right-0.5 bg-destructive text-destructive-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">
                   {cartCount}
                 </span>
               )}

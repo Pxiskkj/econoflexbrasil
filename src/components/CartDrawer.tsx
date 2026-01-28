@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { X, Minus, Plus, Truck } from "lucide-react";
+import { useState, useMemo } from "react";
+import { X, Minus, Plus, Truck, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import product1 from "@/assets/product-1.jpeg";
-import CheckoutPage, { CustomerData } from "./CheckoutPage";
-import PaymentPage from "./PaymentPage";
+import { getShippingOptionsWithDates, checkoutUrls } from "@/lib/shipping";
 
 interface CartItem {
   id: string;
@@ -27,25 +27,19 @@ interface CartDrawerProps {
   onNavigate: (section: string) => void;
 }
 
-type CheckoutStep = "cart" | "customer" | "payment";
-
 const CartDrawer = ({ isOpen, onClose, items, onUpdateQuantity, onRemove, onNavigate }: CartDrawerProps) => {
   const [cep, setCep] = useState("");
   const [formattedCep, setFormattedCep] = useState("");
   const [showShipping, setShowShipping] = useState(false);
   const [selectedShipping, setSelectedShipping] = useState("envio-mini");
-  const [checkoutStep, setCheckoutStep] = useState<CheckoutStep>("cart");
-  const [customerData, setCustomerData] = useState<CustomerData | null>(null);
+  const [vehicleInfo, setVehicleInfo] = useState("");
 
   const originalPrice = 498;
   const currentPrice = 127.42;
   const discount = Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
 
-  const shippingOptions = [
-    { id: "envio-mini", name: "ENVIO MINI Promocional", delivery: "Chega entre quarta 11/02 e quinta 12/02", price: 19.58 },
-    { id: "pac", name: "PAC Promocional", delivery: "Chega segunda 09/02", price: 29.54 },
-    { id: "sedex", name: "SEDEX Promocional", delivery: "Chega entre segunda 02/02 e terça 03/02", price: 64.11 }
-  ];
+  // Calculate shipping options with dynamic delivery dates
+  const shippingOptions = useMemo(() => getShippingOptionsWithDates(), []);
 
   const formatCep = (value: string) => {
     const digits = value.replace(/\D/g, "").slice(0, 8);
@@ -73,54 +67,19 @@ const CartDrawer = ({ isOpen, onClose, items, onUpdateQuantity, onRemove, onNavi
   const total = subtotal + shippingPrice;
   const pixTotal = total * 0.9;
 
+  const isCheckoutReady = showShipping && items.length > 0 && vehicleInfo.trim().length > 0;
+
   const handleStartCheckout = () => {
-    if (showShipping && items.length > 0) {
-      setCheckoutStep("customer");
+    if (isCheckoutReady) {
+      // Redirect directly to the appropriate checkout URL based on shipping selection
+      const checkoutUrl = checkoutUrls[selectedShipping];
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      }
     }
   };
 
-  const handleCustomerContinue = (data: CustomerData) => {
-    setCustomerData(data);
-    setCheckoutStep("payment");
-  };
-
-  const handleBackToCart = () => {
-    setCheckoutStep("cart");
-  };
-
-  const handleBackToCustomer = () => {
-    setCheckoutStep("customer");
-  };
-
   if (!isOpen) return null;
-
-  // Customer data page
-  if (checkoutStep === "customer") {
-    return (
-      <div className="fixed inset-0 z-50 bg-background">
-        <CheckoutPage 
-          onBack={handleBackToCart}
-          onContinue={handleCustomerContinue}
-          shippingOption={selectedShippingOption?.name || ""}
-          shippingPrice={shippingPrice}
-        />
-      </div>
-    );
-  }
-
-  // Payment page
-  if (checkoutStep === "payment" && customerData) {
-    return (
-      <div className="fixed inset-0 z-50 bg-background">
-        <PaymentPage 
-          onBack={handleBackToCustomer}
-          customerData={customerData}
-          shippingOption={selectedShippingOption?.name || ""}
-          shippingPrice={shippingPrice}
-        />
-      </div>
-    );
-  }
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50" onClick={onClose}>
@@ -254,6 +213,23 @@ const CartDrawer = ({ isOpen, onClose, items, onUpdateQuantity, onRemove, onNavi
                   <p className="text-xs text-muted-foreground">
                     O prazo de entrega <strong>não contabiliza feriados</strong>.
                   </p>
+
+                  {/* Vehicle Info - Required */}
+                  <div className="border rounded-lg p-3 mt-3">
+                    <div className="flex items-start gap-2 mb-2">
+                      <MessageSquare className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-sm">Ano + Modelo + Potência do veículo?</p>
+                        <p className="text-xs text-muted-foreground">Preenchimento obrigatório*</p>
+                      </div>
+                    </div>
+                    <Textarea
+                      placeholder="Escreva aqui sua mensagem"
+                      value={vehicleInfo}
+                      onChange={(e) => setVehicleInfo(e.target.value)}
+                      className="min-h-[80px] text-sm resize-none"
+                    />
+                  </div>
                 </>
               )}
 
@@ -271,7 +247,7 @@ const CartDrawer = ({ isOpen, onClose, items, onUpdateQuantity, onRemove, onNavi
               {/* Actions */}
               <Button 
                 onClick={handleStartCheckout}
-                disabled={!showShipping}
+                disabled={!isCheckoutReady}
                 className="w-full bg-econoflex-dark hover:bg-econoflex-dark/90 text-sm h-10"
               >
                 Iniciar compra

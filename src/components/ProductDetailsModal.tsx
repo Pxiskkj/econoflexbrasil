@@ -1,5 +1,7 @@
+import { useMemo } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getShippingOptionsWithDates } from "@/lib/shipping";
 
 interface ProductDetailsModalProps {
   isOpen: boolean;
@@ -11,6 +13,9 @@ const ProductDetailsModal = ({ isOpen, onClose }: ProductDetailsModalProps) => {
   const currentPrice = 127.42;
   const pixPrice = currentPrice * 0.9;
   const discount = Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
+
+  // Get shipping options with dynamic delivery dates
+  const shippingOptions = useMemo(() => getShippingOptionsWithDates(), []);
 
   // Installment calculations
   const installments = [
@@ -72,27 +77,15 @@ const ProductDetailsModal = ({ isOpen, onClose }: ProductDetailsModalProps) => {
               <h3 className="font-medium text-sm">Opções de envio</h3>
             </div>
             <div className="divide-y">
-              <div className="flex justify-between items-center px-3 py-2 text-sm">
-                <div>
-                  <p className="font-medium">ENVIO MINI Promocional</p>
-                  <p className="text-xs text-muted-foreground">Entrega em até 10 dias úteis</p>
+              {shippingOptions.map(option => (
+                <div key={option.id} className="flex justify-between items-center px-3 py-2 text-sm">
+                  <div>
+                    <p className="font-medium">{option.name}</p>
+                    <p className="text-xs text-muted-foreground">{option.delivery}</p>
+                  </div>
+                  <span className="font-medium">R${option.price.toFixed(2).replace('.', ',')}</span>
                 </div>
-                <span className="font-medium">R$19,58</span>
-              </div>
-              <div className="flex justify-between items-center px-3 py-2 text-sm">
-                <div>
-                  <p className="font-medium">PAC Promocional</p>
-                  <p className="text-xs text-muted-foreground">Entrega em até 15 dias úteis</p>
-                </div>
-                <span className="font-medium">R$29,54</span>
-              </div>
-              <div className="flex justify-between items-center px-3 py-2 text-sm">
-                <div>
-                  <p className="font-medium">SEDEX Promocional</p>
-                  <p className="text-xs text-muted-foreground">Entrega em até 5 dias úteis</p>
-                </div>
-                <span className="font-medium">R$64,11</span>
-              </div>
+              ))}
             </div>
           </div>
 
