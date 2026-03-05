@@ -45,9 +45,9 @@ const ProductDetail = () => {
 
   const images = [product1, product2, product3, product4];
 
-  const originalPrice = 498;
-  const currentPrice = 127.42;
-  const pixPrice = 114.68;
+  const originalPrice = 187;
+  const currentPrice = 76.00;
+  const pixPrice = 68.40;
   const discount = Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
   const installments = (currentPrice / 6).toFixed(2);
 
