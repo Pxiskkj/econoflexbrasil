@@ -65,7 +65,7 @@ const ContactPage = () => {
           className="flex items-center gap-3 text-sm hover:text-econoflex-orange transition-colors"
         >
           <Phone className="h-5 w-5" />
-          9295266850
+          95991109891
         </a>
         
         <a 
