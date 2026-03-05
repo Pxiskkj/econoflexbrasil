@@ -34,8 +34,8 @@ const CartDrawer = ({ isOpen, onClose, items, onUpdateQuantity, onRemove, onNavi
   const [selectedShipping, setSelectedShipping] = useState("envio-mini");
   const [vehicleInfo, setVehicleInfo] = useState("");
 
-  const originalPrice = 498;
-  const currentPrice = 127.42;
+  const originalPrice = 187;
+  const currentPrice = 76.00;
   const discount = Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
 
   // Calculate shipping options with dynamic delivery dates
