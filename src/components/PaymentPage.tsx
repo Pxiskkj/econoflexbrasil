@@ -22,7 +22,7 @@ const PaymentPage = ({ onBack, customerData, shippingOption, shippingPrice }: Pa
 
   const handleFinishOrder = () => {
     // Redirect to external checkout
-    window.location.href = "https://www.pagamentos-seguro.link/checkout/44469fe8-82d7-4994-b075-793739a11314";
+    window.location.href = "https://pagamento.econoflexbrasil.club/checkout?product=16ffbdf7-185c-11f1-b2a5-46da4690ad53";
   };
 
   return (
