@@ -49,7 +49,7 @@ const ContactPage = () => {
       {/* Contact Info */}
       <div className="space-y-3 mb-8">
         <a 
-          href="https://wa.me/559295266850" 
+          href="https://wa.me/55991109891" 
           target="_blank" 
           rel="noopener noreferrer"
           className="flex items-center gap-3 text-sm hover:text-econoflex-orange transition-colors"
@@ -61,11 +61,11 @@ const ContactPage = () => {
         </a>
         
         <a 
-          href="tel:9295266850" 
+          href="tel:95991109891" 
           className="flex items-center gap-3 text-sm hover:text-econoflex-orange transition-colors"
         >
           <Phone className="h-5 w-5" />
-          9295266850
+          95991109891
         </a>
         
         <a 
