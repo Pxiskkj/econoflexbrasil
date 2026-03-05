@@ -15,9 +15,9 @@ export const shippingOptions: ShippingOption[] = [
 
 // Checkout URLs based on shipping selection
 export const checkoutUrls: Record<string, string> = {
-  "envio-mini": "https://pagamento.econoflexbrasil.club/checkout?product=e00b6a4a-1827-11f1-b2a5-46da4690ad53",
-  "pac": "https://pagamento.econoflexbrasil.club/checkout?product=e00b6a4a-1827-11f1-b2a5-46da4690ad53",
-  "sedex": "https://pagamento.econoflexbrasil.club/checkout?product=e00b6a4a-1827-11f1-b2a5-46da4690ad53"
+  "envio-mini": "https://pagamento.econoflexbrasil.club/checkout?product=16ffbdf7-185c-11f1-b2a5-46da4690ad53",
+  "pac": "https://pagamento.econoflexbrasil.club/checkout?product=16ffbdf7-185c-11f1-b2a5-46da4690ad53",
+  "sedex": "https://pagamento.econoflexbrasil.club/checkout?product=16ffbdf7-185c-11f1-b2a5-46da4690ad53"
 };
 
 // Calculate delivery date adding only business days (excludes weekends)
